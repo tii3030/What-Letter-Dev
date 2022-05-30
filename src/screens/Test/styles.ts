@@ -184,6 +184,42 @@ export const T_Submit = styled.Text`
     color: #FFFFFF
 `;
 
+export const Clear = styled.TouchableOpacity`
+    height: 45px;
+    width: 45px;
+    border-radius: 21px;
+    background-color: #1A1A1A;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-direction: row;
+`;
+
+export const Clear_Ico = styled.Image`
+    height: 18px;
+    width: 18px;
+`;
+
+export const CheckAll = styled.TouchableOpacity`
+    height: 45px;
+    width: 45px;
+    border-radius: 21px;
+    background-color: #1A1A1A;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-direction: row;
+`;
+
+export const Check_Ico = styled.Image`
+    height: 20px;
+    width: 20px;
+`;
+
 export const Result = styled.View`
     height: 68px;
     width: 236px;

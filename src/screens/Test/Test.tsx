@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { SafeAreaView, DrawerLayoutAndroid, View, Text, Image, FlatList, StyleSheet } from 'react-native';
-import { Header, Back_Btn, Back_Ico, Text_Header, Conf_Btn, Conf_Ico, Drawer, Type_Btn, Title_Drawer, Char_Btn, Text_bottom, Container, Form_T, Mini_Block, T_Block, Mini_BlockI, Con_Block, Hashtag, Submit, T_Submit, Result, T_Result, Noise } from './styles';
+import { Header, Back_Btn, Back_Ico, Text_Header, Conf_Btn, Conf_Ico, Drawer, Type_Btn, Title_Drawer, Char_Btn, Text_bottom, Container, Form_T, Mini_Block, T_Block, Mini_BlockI, Con_Block, Hashtag, Submit, T_Submit, Clear, Clear_Ico, CheckAll, Check_Ico, Result, T_Result, Noise } from './styles';
 import images from "../../assets/images";
 
 function Test() {
@@ -125,6 +125,14 @@ function Test() {
     tmp_row[index] = tmp_row[index] == 0 ? 1 : 0;
     tmp_state[row] = tmp_row;
     setMatriz( tmp_state );
+  }
+
+  function uncheckAll() {
+    
+  }
+
+  function checkAll() {
+
   }
 
   return (
@@ -266,10 +274,21 @@ function Test() {
           </Con_Block>
         </View>
 
-        <Submit onPress={()=> console.log(matriz)}>
-          <T_Submit>TESTAR</T_Submit>
-        </Submit>
+        <View style={{flexDirection: 'row'}}>
 
+          <Submit onPress={()=> console.log(matriz)}>
+            <T_Submit>TESTAR</T_Submit>
+          </Submit>
+
+          <Clear onPress={()=> uncheckAll()}>
+            <Clear_Ico source={images.uncheckAll} />
+          </Clear>
+
+          <CheckAll onPress={()=> checkAll()}>
+            <Check_Ico source={images.checkAll} />
+          </CheckAll>
+
+        </View>
 
         <Noise>CARACTER (RUÍDO 0,0 %)</Noise>
         <Result>
