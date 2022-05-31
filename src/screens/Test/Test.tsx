@@ -2,11 +2,15 @@ import React, { useState, useRef } from "react";
 import { SafeAreaView, DrawerLayoutAndroid, View, Text, Image, FlatList, StyleSheet } from 'react-native';
 import { Header, Back_Btn, Back_Ico, Text_Header, Conf_Btn, Conf_Ico, Drawer, Type_Btn, Title_Drawer, Char_Btn, Text_bottom, Container, Form_T, Mini_Block, T_Block, Mini_BlockI, Con_Block, Hashtag, Submit, T_Submit, Clear, Clear_Ico, CheckAll, Check_Ico, Result, T_Result, Noise } from './styles';
 import images from "../../assets/images";
+import { useNavigation } from '@react-navigation/native';
+import { ToTrainScreenProp } from '../routes/typesScreen';
 
 function Test() {
 
   const [isDrawer, setDrawer] = useState(false);
   const drawer = useRef(null);
+
+  const navigation = useNavigation<ToTrainScreenProp>();
 
   // -----
   const initType = {
@@ -106,6 +110,30 @@ function Test() {
       setDrawer(!isDrawer)
   }
 
+  const initMatriz = [
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0],
+  ]
+
+  const allMatriz = [
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+  ]
+
   const [matriz, setMatriz] = useState([
     [0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0],
@@ -128,11 +156,11 @@ function Test() {
   }
 
   function uncheckAll() {
-    
+    setMatriz(initMatriz);
   }
 
   function checkAll() {
-
+    setMatriz(allMatriz);
   }
 
   return (
@@ -140,7 +168,7 @@ function Test() {
     <>
 
     <Header>
-      <Back_Btn>
+      <Back_Btn onPress={()=> navigation.navigate('ToTrain')}>
         <Back_Ico source={images.back} />
       </Back_Btn>
 
