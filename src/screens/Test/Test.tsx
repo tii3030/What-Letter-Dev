@@ -5,6 +5,7 @@ import images from "../../assets/images";
 import { useNavigation } from '@react-navigation/native';
 import { ToTrainScreenProp } from '../routes/typesScreen';
 import { Perceptron } from '../../neuralNetwork/singlePerceptron'
+import { training } from '../../trainings/training'
 
 function Test() {
 
@@ -166,53 +167,11 @@ function Test() {
 
   function setTest() {
 
-    type trainingSets = [
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-      {inputs: Array<number>, outputs: number},
-    ]
-
-    var training: trainingSets = [
-      {inputs: [0,0,0,0,0,0,0], outputs: 0},
-      {inputs: [1,0,0,0,0,0,0], outputs: 0},
-      {inputs: [1,1,0,0,0,0,0], outputs: 0},
-      {inputs: [1,1,1,0,0,0,0], outputs: 0},
-      {inputs: [0,0,0,0,0,0,1], outputs: 0},
-      {inputs: [0,0,0,0,0,1,1], outputs: 0},
-      {inputs: [0,0,0,0,1,1,1], outputs: 0},
-      {inputs: [0,0,1,0,1,0,0], outputs: 0},
-      {inputs: [0,1,1,0,1,1,0], outputs: 0},
-      {inputs: [1,1,1,0,1,1,1], outputs: 0},
-      {inputs: [1,1,0,0,1,1,0], outputs: 0},
-      {inputs: [0,1,1,0,0,1,1], outputs: 0},
-      {inputs: [0,0,1,0,0,0,0], outputs: 1},
-      {inputs: [0,0,0,0,1,0,0], outputs: 1},
-      {inputs: [0,0,0,1,0,0,0], outputs: 1},
-      {inputs: [0,0,1,1,0,0,0], outputs: 1},
-      {inputs: [0,0,0,1,1,0,0], outputs: 1},
-      {inputs: [0,0,1,1,1,0,0], outputs: 1},
-    ]
-
     let runTest = new Perceptron()
     runTest.init(0.15, 1000)
     runTest.train(training)
 
-    console.log(Math.trunc(runTest.run([1,1,1,1,0,0,0])))
+    console.log(Math.trunc(runTest.run([0,0,1,0,0,0,0])))
   }
 
   return (

@@ -8,30 +8,7 @@
 
 */
 
-type trainingSets = [
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number}
-]
-
-type inputs = Array<number>
-
-type outputs = 0
+import { TrainingSets } from '../models/models'
 
 export class Perceptron {
 
@@ -42,7 +19,7 @@ export class Perceptron {
     
     // ACTIVATION FUNCTION
     protected sigmoid = (x: number): number => {
-        return (1 / (1 + Math.exp(-1 * x)))
+        return isFinite(1 / (1 - Math.exp(-1 * x))) ? (1 / (1 - Math.exp(-1 * x))) : 0 // SOMAR OU SUBTRAIR ?
     }
 
     public init = (learnRatez: number, interactionsz: number) => {
@@ -52,6 +29,7 @@ export class Perceptron {
 
     protected initWeights = (value: number) => {
 
+        // É CORRETO INICIALIZAR O BIAS
         this.bias =  Math.trunc(Math.random() * 10)
         
         for (let index = 0; index < value; index++) {
@@ -59,7 +37,7 @@ export class Perceptron {
         }
     }
 
-    public train = (data: trainingSets) => {
+    public train = (data: TrainingSets) => {
 
         this.initWeights(data[0].inputs.length)
 
@@ -91,13 +69,13 @@ export class Perceptron {
         }
     }
 
-    protected recalWeights = (value: number, inputs: any) => {
+    protected recalWeights = (value: number, inputs: Array<number>) => {
         for (let index = 0; index < this.weights.length; index++) {
             this.weights[index] = this.weights[index] + this.learnRate * value * inputs[index];
         }
     } 
 
-    public run = (inputs: inputs): number => {
+    public run = (inputs: Array<number>): number => {
 
         var sum = 0
         for (let index = 0; index < inputs.length; index++) {
@@ -105,8 +83,6 @@ export class Perceptron {
         }
 
         sum += this.bias
-
         return this.sigmoid(sum)
-
     }
 }
