@@ -15,6 +15,18 @@ type trainingSets = [
     {inputs: Array<number>, outputs: number},
     {inputs: Array<number>, outputs: number},
     {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number},
+    {inputs: Array<number>, outputs: number}
 ]
 
 type inputs = Array<number>
@@ -26,11 +38,11 @@ export class Perceptron {
     protected bias: number = 1
     protected weights: any = []
     protected learnRate:number = 0.15
-    protected interactions:number = 1000
+    protected interactions:number = 2000
     
     // ACTIVATION FUNCTION
     protected sigmoid = (x: number): number => {
-        return (1 / (1 - Math.exp(-1 * x)))
+        return (1 / (1 + Math.exp(-1 * x)))
     }
 
     public init = (learnRatez: number, interactionsz: number) => {

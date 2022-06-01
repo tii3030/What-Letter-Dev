@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { SafeAreaView, DrawerLayoutAndroid, View, Text, Image, FlatList, StyleSheet } from 'react-native';
+import { DrawerLayoutAndroid, View } from 'react-native';
 import { Header, Back_Btn, Back_Ico, Text_Header, Conf_Btn, Conf_Ico, Drawer, Type_Btn, Title_Drawer, Char_Btn, Text_bottom, Container, Form_T, Mini_Block, T_Block, Mini_BlockI, Con_Block, Hashtag, Submit, T_Submit, Clear, Clear_Ico, CheckAll, Check_Ico, Result, T_Result, Noise } from './styles';
 import images from "../../assets/images";
 import { useNavigation } from '@react-navigation/native';
@@ -173,28 +173,46 @@ function Test() {
       {inputs: Array<number>, outputs: number},
       {inputs: Array<number>, outputs: number},
       {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
+      {inputs: Array<number>, outputs: number},
     ]
 
     var training: trainingSets = [
-      {inputs: [1,0,0,0,0,0], outputs: 0},
-      {inputs: [1,1,0,0,0,0], outputs: 0},
-      {inputs: [0,0,0,0,0,1], outputs: 0},
-      {inputs: [0,0,0,0,1,1], outputs: 0},
-      {inputs: [0,0,0,0,1,1], outputs: 0},
-      {inputs: [1,1,0,0,1,1], outputs: 0},
-      {inputs: [0,0,0,0,0,0], outputs: 0},
-      {inputs: [0,0,0,0,0,0], outputs: 1}
-      {inputs: [0,0,1,0,0,0], outputs: 1}
-      {inputs: [0,0,0,1,0,0], outputs: 1}
-      {inputs: [0,0,0,0,0,0], outputs: 1}
-
+      {inputs: [0,0,0,0,0,0,0], outputs: 0},
+      {inputs: [1,0,0,0,0,0,0], outputs: 0},
+      {inputs: [1,1,0,0,0,0,0], outputs: 0},
+      {inputs: [1,1,1,0,0,0,0], outputs: 0},
+      {inputs: [0,0,0,0,0,0,1], outputs: 0},
+      {inputs: [0,0,0,0,0,1,1], outputs: 0},
+      {inputs: [0,0,0,0,1,1,1], outputs: 0},
+      {inputs: [0,0,1,0,1,0,0], outputs: 0},
+      {inputs: [0,1,1,0,1,1,0], outputs: 0},
+      {inputs: [1,1,1,0,1,1,1], outputs: 0},
+      {inputs: [1,1,0,0,1,1,0], outputs: 0},
+      {inputs: [0,1,1,0,0,1,1], outputs: 0},
+      {inputs: [0,0,1,0,0,0,0], outputs: 1},
+      {inputs: [0,0,0,0,1,0,0], outputs: 1},
+      {inputs: [0,0,0,1,0,0,0], outputs: 1},
+      {inputs: [0,0,1,1,0,0,0], outputs: 1},
+      {inputs: [0,0,0,1,1,0,0], outputs: 1},
+      {inputs: [0,0,1,1,1,0,0], outputs: 1},
     ]
 
     let runTest = new Perceptron()
     runTest.init(0.15, 1000)
     runTest.train(training)
 
-    console.log(runTest.run([10, 100]))
+    console.log(Math.trunc(runTest.run([1,1,1,1,0,0,0])))
   }
 
   return (
@@ -359,8 +377,6 @@ function Test() {
 
       </Container>
     </DrawerLayoutAndroid>
-
-
     
     </>
 
