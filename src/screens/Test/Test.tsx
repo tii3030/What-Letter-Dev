@@ -22,7 +22,7 @@ function Test() {
   }
 
   const [typeBtn, setBtnType] = useState({
-    type1: false,
+    type1: true,
     type2: false,
     type3: false
   });
@@ -42,7 +42,7 @@ function Test() {
   }
 
   const [charBtn, setBtnChar] = useState({
-    A: false,
+    A: true,
     B: false,
     C: false,
     D: false,
@@ -166,10 +166,7 @@ function Test() {
   }
 
   function setTest() {
-
     let runTest = new Perceptron()
-    runTest.init(0.15, 1000)
-    runTest.train(training)
 
     console.log(Math.trunc(runTest.run([0,0,1,0,0,0,0])))
   }
