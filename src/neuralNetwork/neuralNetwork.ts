@@ -1,3 +1,5 @@
+import { Result } from "../screens/Test/styles"
+
 type T_Neuron = {
     weights: Array<number>, // [63]
     character: string // A,B,C,D,E,F,G
@@ -463,6 +465,36 @@ export function initTraining() {
 
 
     vectorToTrain[63] = 1 // BIAS SEMPRE 1
+}
+
+export function run () {
+
+    // ----------
+    var threshold: number = 0
+    // ----------
+
+    var result
+
+    for (let outNeuron = 0; outNeuron < 7; outNeuron++) {
+
+        result = 0
+        for (let idxVectorInput = 0; idxVectorInput < 64; idxVectorInput++) {
+            result = result + (vectorToTrain[idxVectorInput] * OutNeuron[outNeuron].weights[idxVectorInput])
+        }
+
+        /*
+            ACTIVATION FUNCTION
+            1 IF X > threshold
+            -1 IF X <= threshold
+        */
+
+        if(result > threshold) [
+            // SET CARACTER IN SCREEN
+            OutNeuron[outNeuron].character
+        ]
+
+    }
+
 }
 
 
