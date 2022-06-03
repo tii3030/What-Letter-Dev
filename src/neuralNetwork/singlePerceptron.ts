@@ -29,8 +29,8 @@ export class Perceptron {
 
     protected initWeights = (value: number) => {
 
-        // É CORRETO INICIALIZAR O BIAS
-        this.bias =  Math.trunc(Math.random() * 10)
+        // É CORRETO INICIALIZAR O BIAS (O  BIAS SEMMPRE TEM Q SER 1)
+        // bias =  Math.trunc(Math.random() * 10)
         
         for (let index = 0; index < value; index++) {
             this.weights[index] = Math.trunc(Math.random() * 10)

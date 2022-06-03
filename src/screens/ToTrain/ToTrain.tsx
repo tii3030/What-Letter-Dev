@@ -52,8 +52,11 @@ function ToTrain() {
 
     function setTrain() {
         let runTest = new Perceptron()
-        runTest.init(0.15, 1000)
+        runTest.init(0.15, 2000)
         runTest.train(training)
+
+        console.log(Math.trunc(runTest.run([0,0,0,1,0,0,0])))
+
     }
 
     return (

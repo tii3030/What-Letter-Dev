@@ -381,22 +381,88 @@ var TrainingSetsz = {
     },
 }
 
-var threshold: number = 0
-var learnRate: number = 0
-
-
-
+var vectorToTrain =  [
+    0,0,0,1,1,0,0,
+    0,0,0,1,0,0,0,
+    0,0,0,1,0,0,0,
+    0,1,0,0,1,0,0,
+    0,0,1,0,1,0,0,
+    0,1,1,0,1,1,0,
+    0,1,0,0,0,0,1,
+    0,1,0,0,0,1,0,
+    0,1,1,0,0,1,0,
+]
 
 
 
 export function initTraining() {
+
     var cycle: number = 1
     var net: number
     var expReturn: number
     var isFinished: boolean = false
     var minError:number = 0.1
-    var partError: number = 0.0
+    var partError2: number = 0.0
     var start: boolean = true
+
+    var threshold: number = 0
+    var learnRate: number = 0.01 // TAXA DE APRENDIZAGEM
+
+    while(!isFinished) {
+
+        start = true 
+        cycle++
+        partError2 = 0.0
+
+        // 21 PARA OS 3 TIPOS ATÉ O G (3 TIPOS X 7 NEURONIOS) 21 VETORES DE TESTE
+        for (let currentVector = 0; currentVector < 21; currentVector++) {
+            
+            // ITERA TODOS OS NEURONIOS DE SAIDA
+            for (let outNeuron = 0; outNeuron < 7; outNeuron++) {
+                net = 0
+
+                // CRIA O PESO (NET)
+                for (let index = 0; index < 63; index++) {
+                    net += VetorInput[index].vetorTrain[index] * OutNeuron[index].weights[index]
+                }
+
+                // SOMA OS PESOS CALCULADOS ACIMA COM O BIAS
+                net += OutNeuron[outNeuron].weights[63]
+
+                // SE O CARACTER CORRESPONDENTE AO VETOR DE ENTRADA == AO CARACTERE DO VETOR DE SAIDA 
+                if(VetorInput[currentVector].character == OutNeuron[outNeuron].character) {
+                    expReturn = 1
+                } else {
+                    expReturn = -1
+                }
+
+                for (let index = 0; index < 64; index++) {
+                    if(index == 63) { // BIAS
+                        OutNeuron[outNeuron].weights[index] += learnRate * (expReturn - net)
+                    } else {
+                        OutNeuron[outNeuron].weights[index] += learnRate * ((expReturn - net) * VetorInput[currentVector].vetorTrain[index])
+                    }
+                }
+
+                if(start) {
+                    partError2 = 0.5 * ((expReturn - net) * (expReturn - net))
+                    start = false
+                } else if((0.5 * ((expReturn - net) * (expReturn - net))) > partError2) {
+                    partError2 = 0.5 * ((expReturn - net) * (expReturn - net))
+                }
+            }
+
+        }
+
+        // VERIFICAR CONDIÇÃO DE PARADA
+        if(partError2 <= minError) {
+            isFinished = true
+        }
+
+    }
+
+
+    vectorToTrain[63] = 1 // BIAS SEMPRE 1
 }
 
 
