@@ -1,15 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store/store'
+import { T_Neuron } from '../../models/models'
 
-const initialState: {} = {
-    weights: []
-}
+const initialState: T_Neuron[] = []
 
 export const NeuralSlice = createSlice({
     name: 'addNeural',
     initialState,
     reducers: {
-        addNeural: (state, action: PayloadAction<{}>) => {
+        addNeural: (state, action: PayloadAction<[]>) => {
             state = (action.payload)
         },
     },
