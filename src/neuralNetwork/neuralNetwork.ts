@@ -366,13 +366,14 @@ export class Training {
 
         // 64 -> BIAS NA 64° POSIÇÃO
 
-        let aux: number[] = []
 
         for (let i = 0; i < 7; i++) {
 
             this.OutNeuron[i] = {
                 character: '', weights: []
             }
+            let aux: number[] = []
+
             
             for (let j = 0; j < 64; j++) {
                 aux[j] = 0
@@ -459,11 +460,12 @@ export class Training {
     
             }
 
-            console.log(partError2)
+           
 
             // VERIFICAR CONDIÇÃO DE PARADA
             if(partError2 <= minError) {
                 isFinished = true
+                console.log(cycle)
             }
     
         }
