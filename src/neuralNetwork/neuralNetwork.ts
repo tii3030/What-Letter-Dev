@@ -1,8 +1,8 @@
 import { store } from '../redux/store/store'
-import addNeural from '../redux/reducers/addNeural'
+import { addNeural } from '../redux/reducers/addNeural'
 import { T_VetorInput, T_Neuron } from '../models/models'
 
-export class Training {
+export class Neural {
 
     // VETORES DE TRAINAMENTO
     protected TrainingSetsz = {
@@ -400,6 +400,15 @@ export class Training {
 
     }
 
+    protected getStore = ()=> {
+        const state = store.getState()
+        return state.neural.neurons
+    }
+
+    protected dispatchStore = async () => {
+        await store.dispatch(addNeural(this.OutNeuron))
+    }
+
     public Training() {
 
         this.initWeight()
@@ -410,7 +419,7 @@ export class Training {
         var net: number
         var expReturn: number
         var isFinished: boolean = false
-        var minError:number = 0.1
+        var minError:number = 0.01
         var partError2: number = 0.0
         var start: boolean = true
         var learnRate: number = 0.01 // TAXA DE APRENDIZAGEM
@@ -461,63 +470,46 @@ export class Training {
     
             }
 
-           
-
             // VERIFICAR CONDIÇÃO DE PARADA
             if(partError2 <= minError) {
                 isFinished = true
+                this.dispatchStore()
             }
     
         }
     
     }
 
+    public Run(vectorToTrain: Array<number>) {
+
+        let Neurons = this.getStore()
+
+        vectorToTrain[63] = 1 // BIAS SEMPRE 1
+
+        var threshold: number = 0
+
+        var result
+
+        for (let outNeuron = 0; outNeuron < 7; outNeuron++) {
+
+            result = 0
+            for (let idxVectorInput = 0; idxVectorInput < 64; idxVectorInput++) {
+                result = result + (vectorToTrain[idxVectorInput] * Neurons[outNeuron].weights[idxVectorInput])
+            }
+
+            /*
+                ACTIVATION FUNCTION
+                1 IF X > threshold
+                -1 IF X <= threshold
+            */
+
+            if(result > threshold) {
+                // RETURN CARACTER IN SCREEN
+                return Neurons[outNeuron].character
+            } else {
+                return "?"
+            }
+
+        }
+    }
 }
-
-
-
-
-// export function run () {
-
-//     var vectorToTrain =  [
-//         0,0,0,1,1,0,0,
-//         0,0,0,1,0,0,0,
-//         0,0,0,1,0,0,0,
-//         0,1,0,0,1,0,0,
-//         0,0,1,0,1,0,0,
-//         0,1,1,0,1,1,0,
-//         0,1,0,0,0,0,1,
-//         0,1,0,0,0,1,0,
-//         0,1,1,0,0,1,0,
-//     ]
-
-//     vectorToTrain[63] = 1 // BIAS SEMPRE 1
-
-//     var threshold: number = 0
-
-//     var result
-
-//     for (let outNeuron = 0; outNeuron < 7; outNeuron++) {
-
-//         result = 0
-//         for (let idxVectorInput = 0; idxVectorInput < 64; idxVectorInput++) {
-//             result = result + (vectorToTrain[idxVectorInput] * OutNeuron[outNeuron].weights[idxVectorInput])
-//         }
-
-//         /*
-//             ACTIVATION FUNCTION
-//             1 IF X > threshold
-//             -1 IF X <= threshold
-//         */
-
-//         if(result > threshold) [
-//             // SET CARACTER IN SCREEN
-//             OutNeuron[outNeuron].character
-//         ]
-
-//     }
-
-// }
-
-
-

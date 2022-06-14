@@ -161,7 +161,7 @@ export const Hashtag = styled.Text<{ selected?: number }>`
     font-family: RobotoCondensed-Bold;
     font-size: 28px;
 
-    ${({ selected }) => selected == 0 && `
+    ${({ selected }) => selected == -1 && `
         display: none;
     `}
 `;

@@ -31,3 +31,7 @@ export type T_VetorInput = {
     character: string, // A,B,C,D,E,F,G
     vetorTrain: Array<number> // [63]
 }
+
+export type T_State = {
+    neurons: T_Neuron[]
+}

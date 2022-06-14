@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ToTrainScreenProp } from '../routes/typesScreen';
 import { Perceptron } from '../../neuralNetwork/singlePerceptron'
 import { training } from '../../trainings/training'
+import { Neural } from '../../neuralNetwork/neuralNetwork'
 
 function Test() {
 
@@ -113,47 +114,45 @@ function Test() {
   }
 
   const initMatriz = [
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
   ]
 
   const allMatriz = [
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
+    1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,
   ]
 
   const [matriz, setMatriz] = useState([
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0],
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,
   ]);
 
-  function changeHash(row: number, index: number){
+  function changeHash(index: number){
 
     let tmp_state = [ ...matriz];
-    let tmp_row = tmp_state[row];
-    tmp_row[index] = tmp_row[index] == 0 ? 1 : 0;
-    tmp_state[row] = tmp_row;
+    tmp_state[index] = tmp_state[index] == -1 ? 1 : -1;
     setMatriz( tmp_state );
   }
 
@@ -166,9 +165,11 @@ function Test() {
   }
 
   function setTest() {
-    let runTest = new Perceptron()
+    // let runTest = new Perceptron()
+    // console.log(Math.trunc(runTest.run([0,0,1,0,0,0,0])))
 
-    console.log(Math.trunc(runTest.run([0,0,1,0,0,0,0])))
+    let Train = new Neural()
+    Train.Run(matriz)
   }
 
   return (
@@ -212,101 +213,101 @@ function Test() {
           
           <Con_Block>
             <Mini_Block><T_Block>1</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(0, 0)}><Hashtag selected={matriz[0][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(0, 1)}><Hashtag selected={matriz[0][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(0, 2)}><Hashtag selected={matriz[0][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(0, 3)}><Hashtag selected={matriz[0][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(0, 4)}><Hashtag selected={matriz[0][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(0, 5)}><Hashtag selected={matriz[0][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(0, 6)}><Hashtag selected={matriz[0][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(0)}><Hashtag selected={matriz[0]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(1)}><Hashtag selected={matriz[1]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(2)}><Hashtag selected={matriz[2]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(3)}><Hashtag selected={matriz[3]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(4)}><Hashtag selected={matriz[4]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(5)}><Hashtag selected={matriz[5]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(6)}><Hashtag selected={matriz[6]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
 
           <Con_Block>
             <Mini_Block><T_Block>2</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(1, 0)}><Hashtag selected={matriz[1][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(1, 1)}><Hashtag selected={matriz[1][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(1, 2)}><Hashtag selected={matriz[1][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(1, 3)}><Hashtag selected={matriz[1][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(1, 4)}><Hashtag selected={matriz[1][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(1, 5)}><Hashtag selected={matriz[1][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(1, 6)}><Hashtag selected={matriz[1][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(7)}><Hashtag selected={matriz[7]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(8)}><Hashtag selected={matriz[8]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(9)}><Hashtag selected={matriz[9]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(10)}><Hashtag selected={matriz[10]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(11)}><Hashtag selected={matriz[11]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(12)}><Hashtag selected={matriz[12]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(13)}><Hashtag selected={matriz[13]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
 
           <Con_Block>
             <Mini_Block><T_Block>3</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(2, 0)}><Hashtag selected={matriz[2][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(2, 1)}><Hashtag selected={matriz[2][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(2, 2)}><Hashtag selected={matriz[2][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(2, 3)}><Hashtag selected={matriz[2][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(2, 4)}><Hashtag selected={matriz[2][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(2, 5)}><Hashtag selected={matriz[2][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(2, 6)}><Hashtag selected={matriz[2][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(14)}><Hashtag selected={matriz[14]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(15)}><Hashtag selected={matriz[15]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(16)}><Hashtag selected={matriz[16]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(17)}><Hashtag selected={matriz[17]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(18)}><Hashtag selected={matriz[18]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(19)}><Hashtag selected={matriz[19]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(20)}><Hashtag selected={matriz[20]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
 
           <Con_Block>
             <Mini_Block><T_Block>4</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(3, 0)}><Hashtag selected={matriz[3][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(3, 1)}><Hashtag selected={matriz[3][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(3, 2)}><Hashtag selected={matriz[3][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(3, 3)}><Hashtag selected={matriz[3][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(3, 4)}><Hashtag selected={matriz[3][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(3, 5)}><Hashtag selected={matriz[3][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(3, 6)}><Hashtag selected={matriz[3][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(21)}><Hashtag selected={matriz[21]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(22)}><Hashtag selected={matriz[22]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(23)}><Hashtag selected={matriz[23]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(24)}><Hashtag selected={matriz[24]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(25)}><Hashtag selected={matriz[25]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(26)}><Hashtag selected={matriz[26]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(27)}><Hashtag selected={matriz[27]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
 
           <Con_Block>
             <Mini_Block><T_Block>5</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(4, 0)}><Hashtag selected={matriz[4][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(4, 1)}><Hashtag selected={matriz[4][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(4, 2)}><Hashtag selected={matriz[4][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(4, 3)}><Hashtag selected={matriz[4][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(4, 4)}><Hashtag selected={matriz[4][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(4, 5)}><Hashtag selected={matriz[4][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(4, 6)}><Hashtag selected={matriz[4][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(28)}><Hashtag selected={matriz[28]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(29)}><Hashtag selected={matriz[29]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(30)}><Hashtag selected={matriz[30]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(31)}><Hashtag selected={matriz[31]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(32)}><Hashtag selected={matriz[32]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(33)}><Hashtag selected={matriz[33]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(34)}><Hashtag selected={matriz[34]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
 
           <Con_Block>
             <Mini_Block><T_Block>6</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(5, 0)}><Hashtag selected={matriz[5][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(5, 1)}><Hashtag selected={matriz[5][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(5, 2)}><Hashtag selected={matriz[5][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(5, 3)}><Hashtag selected={matriz[5][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(5, 4)}><Hashtag selected={matriz[5][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(5, 5)}><Hashtag selected={matriz[5][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(5, 6)}><Hashtag selected={matriz[5][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(35)}><Hashtag selected={matriz[35]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(36)}><Hashtag selected={matriz[36]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(37)}><Hashtag selected={matriz[37]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(38)}><Hashtag selected={matriz[38]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(39)}><Hashtag selected={matriz[39]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(40)}><Hashtag selected={matriz[40]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(41)}><Hashtag selected={matriz[41]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
 
           <Con_Block>
             <Mini_Block><T_Block>7</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(6, 0)}><Hashtag selected={matriz[6][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(6, 1)}><Hashtag selected={matriz[6][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(6, 2)}><Hashtag selected={matriz[6][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(6, 3)}><Hashtag selected={matriz[6][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(6, 4)}><Hashtag selected={matriz[6][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(6, 5)}><Hashtag selected={matriz[6][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(6, 6)}><Hashtag selected={matriz[6][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(42)}><Hashtag selected={matriz[42]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(43)}><Hashtag selected={matriz[43]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(44)}><Hashtag selected={matriz[44]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(45)}><Hashtag selected={matriz[45]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(46)}><Hashtag selected={matriz[46]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(47)}><Hashtag selected={matriz[47]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(48)}><Hashtag selected={matriz[48]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
 
           <Con_Block>
             <Mini_Block><T_Block>8</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(7, 0)}><Hashtag selected={matriz[7][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(7, 1)}><Hashtag selected={matriz[7][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(7, 2)}><Hashtag selected={matriz[7][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(7, 3)}><Hashtag selected={matriz[7][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(7, 4)}><Hashtag selected={matriz[7][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(7, 5)}><Hashtag selected={matriz[7][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(7, 6)}><Hashtag selected={matriz[7][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(49)}><Hashtag selected={matriz[49]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(50)}><Hashtag selected={matriz[50]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(51)}><Hashtag selected={matriz[51]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(52)}><Hashtag selected={matriz[52]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(53)}><Hashtag selected={matriz[53]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(54)}><Hashtag selected={matriz[54]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(55)}><Hashtag selected={matriz[55]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
 
           <Con_Block>
             <Mini_Block><T_Block>9</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(8, 0)}><Hashtag selected={matriz[8][0]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(8, 1)}><Hashtag selected={matriz[8][1]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(8, 2)}><Hashtag selected={matriz[8][2]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(8, 3)}><Hashtag selected={matriz[8][3]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(8, 4)}><Hashtag selected={matriz[8][4]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(8, 5)}><Hashtag selected={matriz[8][5]}>#</Hashtag></Mini_BlockI>
-            <Mini_BlockI onPress={()=> changeHash(8, 6)}><Hashtag selected={matriz[8][6]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(56)}><Hashtag selected={matriz[56]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(57)}><Hashtag selected={matriz[57]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(58)}><Hashtag selected={matriz[58]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(59)}><Hashtag selected={matriz[59]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(60)}><Hashtag selected={matriz[60]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(61)}><Hashtag selected={matriz[61]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI onPress={()=> changeHash(62)}><Hashtag selected={matriz[62]}>#</Hashtag></Mini_BlockI>
           </Con_Block>
         </View>
 
