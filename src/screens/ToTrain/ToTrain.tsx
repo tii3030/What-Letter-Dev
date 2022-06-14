@@ -8,6 +8,7 @@ import { Dimensions } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import { Perceptron } from '../../neuralNetwork/singlePerceptron'
 import { training } from '../../trainings/training'
+import { Training } from '../../neuralNetwork/neuralNetwork'
 
 function ToTrain() {
 
@@ -51,11 +52,14 @@ function ToTrain() {
     }
 
     function setTrain() {
-        let runTest = new Perceptron()
-        runTest.init(0.15, 2000)
-        runTest.train(training)
+        // let runTest = new Perceptron()
+        // runTest.init(0.15, 2000)
+        // runTest.train(training)
 
-        console.log(Math.trunc(runTest.run([0,0,0,1,0,0,0])))
+        // console.log(Math.trunc(runTest.run([0,0,0,1,0,0,0])))
+
+        var Train = new Training()
+        Train.Training()
 
     }
 
