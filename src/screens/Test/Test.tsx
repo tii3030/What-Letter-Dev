@@ -1,110 +1,110 @@
-import React, { useState, useRef } from "react";
-import { DrawerLayoutAndroid, View } from 'react-native';
-import { Header, Back_Btn, Back_Ico, Text_Header, Conf_Btn, Conf_Ico, Drawer, Type_Btn, Title_Drawer, Char_Btn, Text_bottom, Container, Form_T, Mini_Block, T_Block, Mini_BlockI, Con_Block, Hashtag, Submit, T_Submit, Clear, Clear_Ico, CheckAll, Check_Ico, Result, T_Result, Noise } from './styles';
+import React, { useState, useRef, useEffect } from "react";
+import { DrawerLayoutAndroid, View, Modal } from 'react-native';
+import { Info_T, Loading, Header, Text_Header, Conf_Btn, Conf_Ico, Drawer, Container, Form_T, Mini_Block, T_Block, Mini_BlockI, Con_Block, Hashtag, Submit, T_Submit, Clear, Clear_Ico, CheckAll, Check_Ico, Result, T_Result, Noise, Container_Modals, Modals } from './styles';
 import images from "../../assets/images";
-import { useNavigation } from '@react-navigation/native';
-import { ToTrainScreenProp } from '../routes/typesScreen';
-import { Perceptron } from '../../neuralNetwork/singlePerceptron'
-import { training } from '../../trainings/training'
 import { Neural } from '../../neuralNetwork/neuralNetwork'
+import { LineChart } from "react-native-chart-kit";
+import SplashScreen from  "react-native-splash-screen";
 
 function Test() {
 
+  const [isTrained, setIsTrained] = useState(true)
+
+  useEffect(() => {
+    SplashScreen.hide();
+    let Train = new Neural()
+    let resp = Train.Training()
+    setDataBar(resp)
+
+    setTimeout(() => {
+      setIsTrained(false)
+    }, 4500)
+    
+  }, []);
+
   const [isDrawer, setDrawer] = useState(false);
   const drawer = useRef<DrawerLayoutAndroid>(null);
+  const [dataBar, setDataBar] = useState({cycle: 0, errors: [0]})
 
-  const navigation = useNavigation<ToTrainScreenProp>();
-
-  // -----
-  const initType = {
-    type1: false,
-    type2: false,
-    type3: false
+  var data = {
+    labels: ["", `Ciclos: ${dataBar.cycle}`],
+    datasets: [{
+      data: dataBar.errors
+    }]
   }
 
-  const [typeBtn, setBtnType] = useState({
-    type1: true,
-    type2: false,
-    type3: false
-  });
-
-  const [type, setType] = useState(0);
-
-
-  // -----
-  const initChar = {
-    A: false,
-    B: false,
-    C: false,
-    D: false,
-    E: false,
-    F: false,
-    G: false,
+  var chartConfig = {
+    backgroundColor: "#7D0021",
+    backgroundGradientFrom: "#1A1A1A",
+    backgroundGradientTo: "#1A1A1A",
+    decimalPlaces: 2, // optional, defaults to 2dp
+    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    style: {
+        borderRadius: 16
+    },
+    propsForDots: {
+        r: "1",
+        strokeWidth: "0",
+    }
   }
-
-  const [charBtn, setBtnChar] = useState({
-    A: true,
-    B: false,
-    C: false,
-    D: false,
-    E: false,
-    F: false,
-    G: false,
-  });
-
-  const [char, setChar] = useState('');
-
 
   const navigationView = () => (
     <Drawer>
+      <Form_T>CARACTERÍSTICAS DA REDE NEURAL</Form_T>
+        
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Info_T>Número de neurônios de entrada:</Info_T>
+            <Info_T>63</Info_T>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Info_T>Utiliza-se o Bias</Info_T>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Info_T>Erro mínimo:</Info_T>
+            <Info_T>0.01</Info_T>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Info_T>Entradas para o treinamento (3 fontes):</Info_T>
+            <Info_T>21</Info_T>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Info_T>Algoritmo:</Info_T>
+            <Info_T>Adaline (Regra Delta)</Info_T>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20}}>
+            <Info_T>Taxa de aprendizagem:</Info_T>
+            <Info_T>0.01</Info_T>
+        </View>
 
-      <Title_Drawer>TIPO DA FONTE</Title_Drawer>
+        <Form_T style={{marginBottom: 0}}>EVOLUÇÃO DO TREINAMENTO</Form_T>
+        <Form_T style={{marginBottom: 0, fontSize: 12}}>ERRO QUADRÁTICO X CICLO</Form_T>
 
-      <View style={{marginBottom: 20}}>
-        <Type_Btn selected={typeBtn.type1} onPress={()=> {setBtnType({...initType, type1: !typeBtn.type1}), !typeBtn.type1 ? setType(1) : setType(0)}}>
-          <Text_bottom selected={typeBtn.type1}>Tipo 1</Text_bottom>
-        </Type_Btn>
+        <View>
 
-        <Type_Btn selected={typeBtn.type2} onPress={()=> {setBtnType({...initType, type2: !typeBtn.type2}), !typeBtn.type2 ? setType(2) : setType(0)}}>
-          <Text_bottom selected={typeBtn.type2}>Tipo 2</Text_bottom>
-        </Type_Btn>
+            <LineChart
+                data={data}
+                width={300 - 40} // from react-native
+                height={340}
+                // yAxisLabel="$"
+                // yAxisSuffix="k"
+                yAxisInterval={1} // optional, defaults to 1
+                chartConfig={chartConfig}
+                withDots={true}
+                withShadow={true}
+                withInnerLines={false}
+                withOuterLines={false}
+                withVerticalLines={false}
+                withHorizontalLines={true}
+                withVerticalLabels={true}
+                withHorizontalLabels={true}
 
-        <Type_Btn selected={typeBtn.type3} onPress={()=> {setBtnType({...initType, type3: !typeBtn.type3}), !typeBtn.type3 ? setType(3) : setType(0)}}>
-          <Text_bottom selected={typeBtn.type3}>Tipo 3</Text_bottom>
-        </Type_Btn>
-      </View>
-
-      <Title_Drawer>CARACTER</Title_Drawer>
-
-      <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-        <Char_Btn selected={charBtn.A} onPress={()=> {setBtnChar({...initChar, A: !charBtn.A}), !charBtn.A ? setChar('A') : setChar('')}}>
-          <Text_bottom selected={charBtn.A}>A</Text_bottom>
-        </Char_Btn>
-
-        <Char_Btn selected={charBtn.B} onPress={()=> {setBtnChar({...initChar, B: !charBtn.B}), !charBtn.B ? setChar('B') : setChar('')}}>
-          <Text_bottom selected={charBtn.B}>B</Text_bottom>
-        </Char_Btn>
-
-        <Char_Btn selected={charBtn.C} onPress={()=> {setBtnChar({...initChar, C: !charBtn.C}), !charBtn.C ? setChar('C') : setChar('')}}>
-          <Text_bottom selected={charBtn.C}>C</Text_bottom>
-        </Char_Btn>
-
-        <Char_Btn selected={charBtn.D} onPress={()=> {setBtnChar({...initChar, D: !charBtn.D}), !charBtn.D ? setChar('D') : setChar('')}}>
-          <Text_bottom selected={charBtn.D}>D</Text_bottom>
-        </Char_Btn>
-
-        <Char_Btn selected={charBtn.E} onPress={()=> {setBtnChar({...initChar, E: !charBtn.E}), !charBtn.E ? setChar('E') : setChar('')}}>
-          <Text_bottom selected={charBtn.E}>E</Text_bottom>
-        </Char_Btn>
-
-        <Char_Btn selected={charBtn.F} onPress={()=> {setBtnChar({...initChar, F: !charBtn.F}), !charBtn.F ? setChar('F') : setChar('')}}>
-          <Text_bottom selected={charBtn.F}>F</Text_bottom>
-        </Char_Btn>
-
-        <Char_Btn selected={charBtn.G} onPress={()=> {setBtnChar({...initChar, G: !charBtn.G}), !charBtn.G ? setChar('G') : setChar('')}}>
-          <Text_bottom selected={charBtn.G}>G</Text_bottom>
-        </Char_Btn>
-      </View>
+                style={{
+                    paddingTop: 35,
+                    borderRadius: 10
+                }}
+            />
+        </View>
     </Drawer>
   );
 
@@ -164,12 +164,11 @@ function Test() {
     setMatriz(allMatriz);
   }
 
+  const [letter, setLetter] = useState("?")
   function setTest() {
-    // let runTest = new Perceptron()
-    // console.log(Math.trunc(runTest.run([0,0,1,0,0,0,0])))
-
     let Train = new Neural()
-    Train.Run(matriz)
+    let resp = Train.Run(matriz)
+    setLetter(resp)
   }
 
   return (
@@ -177,11 +176,7 @@ function Test() {
     <>
 
     <Header>
-      <Back_Btn onPress={()=> navigation.navigate('ToTrain')}>
-        <Back_Ico source={images.back} />
-      </Back_Btn>
-
-      <Text_Header>TREINAR</Text_Header>
+      <Text_Header>TESTE A IA</Text_Header>
 
       <Conf_Btn onPress={() => changeDrawer()}>
         <Conf_Ico source={images.configurations} />
@@ -213,7 +208,7 @@ function Test() {
           
           <Con_Block>
             <Mini_Block><T_Block>1</T_Block></Mini_Block>
-            <Mini_BlockI onPress={()=> changeHash(0)}><Hashtag selected={matriz[0]}>#</Hashtag></Mini_BlockI>
+            <Mini_BlockI delayPressIn={0} onPress={()=> changeHash(0)}><Hashtag selected={matriz[0]}>#</Hashtag></Mini_BlockI>
             <Mini_BlockI onPress={()=> changeHash(1)}><Hashtag selected={matriz[1]}>#</Hashtag></Mini_BlockI>
             <Mini_BlockI onPress={()=> changeHash(2)}><Hashtag selected={matriz[2]}>#</Hashtag></Mini_BlockI>
             <Mini_BlockI onPress={()=> changeHash(3)}><Hashtag selected={matriz[3]}>#</Hashtag></Mini_BlockI>
@@ -329,12 +324,29 @@ function Test() {
 
         <Noise>CARACTER (RUÍDO 0,0 %)</Noise>
         <Result>
-          <T_Result>A</T_Result>
+          <T_Result>{letter}</T_Result>
         </Result>
 
       </Container>
     </DrawerLayoutAndroid>
     
+
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={isTrained}
+      onRequestClose={() => {
+        setIsTrained(!isTrained);
+      }}
+    >
+      <Container_Modals>
+        <Modals>
+          <Form_T style={{fontWeight: 'bold'}}>Treinando a IA...</Form_T>
+          <Loading source={images.loading}></Loading>
+        </Modals>
+      </Container_Modals>
+    </Modal>
+
     </>
 
   );

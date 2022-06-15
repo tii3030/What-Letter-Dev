@@ -1,26 +1,3 @@
-export type TrainingSets = [
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number},
-    {inputs: Array<number>, outputs: number}
-]
-
-type Inputs = Array<number>
-
 export type T_Neuron = {
     weights: Array<number>, // [63]
     character: string // A,B,C,D,E,F,G

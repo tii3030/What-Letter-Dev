@@ -424,6 +424,8 @@ export class Neural {
         var start: boolean = true
         var learnRate: number = 0.01 // TAXA DE APRENDIZAGEM
 
+        var error2Arr: number[] = []
+
         while(!isFinished) {
     
             start = true 
@@ -470,6 +472,8 @@ export class Neural {
     
             }
 
+            error2Arr.push(partError2)
+
             // VERIFICAR CONDIÇÃO DE PARADA
             if(partError2 <= minError) {
                 isFinished = true
@@ -477,18 +481,23 @@ export class Neural {
             }
     
         }
+
+        let data = {
+            cycle: cycle,
+            errors: error2Arr
+        }
+
+        return data
     
     }
 
     public Run(vectorToTrain: Array<number>) {
 
         let Neurons = this.getStore()
-
         vectorToTrain[63] = 1 // BIAS SEMPRE 1
-
         var threshold: number = 0
-
         var result
+        var letter: string = '?'
 
         for (let outNeuron = 0; outNeuron < 7; outNeuron++) {
 
@@ -505,11 +514,10 @@ export class Neural {
 
             if(result > threshold) {
                 // RETURN CARACTER IN SCREEN
-                return Neurons[outNeuron].character
-            } else {
-                return "?"
+                letter = Neurons[outNeuron].character
             }
-
         }
+
+        return letter
     }
 }

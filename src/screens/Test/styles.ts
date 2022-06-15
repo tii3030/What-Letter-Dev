@@ -1,4 +1,8 @@
 import styled from "styled-components/native"
+import { Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const Header = styled.View`
     height: 55px;
@@ -32,7 +36,8 @@ export const Text_Header = styled.Text`
     margin-left: 10px;
     font-family: RobotoCondensed-Regular;
     margin-top: auto;
-    margin-bottom: auto
+    margin-bottom: auto;
+    color: #FFF
 `;
 
 export const Conf_Btn = styled.TouchableOpacity`
@@ -52,46 +57,8 @@ export const Conf_Ico = styled.Image`
 export const Drawer = styled.View`
     background-color: #FFF;
     flex: 1;
-    align-items: center;
     padding: 20px;
 `;
-
-export const Type_Btn = styled.TouchableOpacity<{ selected?: boolean }>`
-    height: 40px;
-    width: 200px;
-    border-radius: 8px;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    background: ${(props) => props.selected ? "#1A1A1A" : "#FFFFFF"};
-    border: 1px solid #1A1A1A;
-`;
-
-export const Title_Drawer = styled.Text`
-    color: #595959; 
-    font-family: RobotoCondensed-Light;
-    font-size: 16px;
-    margin-bottom: 20px
-`;
-
-export const Char_Btn = styled.TouchableOpacity<{ selected?: boolean }>`
-    height: 40px;
-    width: 40px;
-    background: ${(props) => props.selected ? "#1A1A1A" : "#FFFFFF"};
-    border-radius: 8px;
-    align-items: center;
-    justify-content: center;
-    margin: 6px;
-    border: 1px solid #1A1A1A;
-`;
-
-export const Text_bottom = styled.Text<{ selected?: boolean }>`
-    color: ${(props) => props.selected ? "#FFFFFF" : "#1A1A1A"};
-    font-family: RobotoCondensed-Regular;
-    font-size: 14px;
-`;
-
-
 
 export const Container = styled.ScrollView`
     flex: 1;
@@ -246,3 +213,39 @@ export const Noise = styled.Text`
     font-family: RobotoCondensed-Light;
 `;
 
+export const Container_Modals = styled.View`
+    width: ${windowWidth}px;
+    flex: 1;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    background-color: 'rgba(0,0,0,0.5)';
+`;
+
+export const Modals = styled.View`
+    width: 288px;
+    height: 200px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    background: #f7f7f7;
+    padding: 16px;
+    z-index: 100000;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+`;
+
+export const Loading = styled.Image`
+    height: 100px;
+    width: 100px;
+`;
+
+export const Info_T = styled.Text`
+    color: #1A1A1A; 
+    font-family: RobotoCondensed-Regular;
+    font-size: 14px;
+`;

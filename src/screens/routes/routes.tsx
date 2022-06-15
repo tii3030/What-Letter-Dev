@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Test from '../Test/Test';
-import ToTrain from '../ToTrain/ToTrain';
 
 import { RootStackParamList } from './rootList';
 
@@ -16,7 +15,6 @@ export default function Routes() {
             }}
         >
             <RootStack.Screen name="Test" component={Test} />
-            <RootStack.Screen name="ToTrain" component={ToTrain} />
         </RootStack.Navigator>
   );
 }
